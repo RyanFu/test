@@ -19,9 +19,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ToCrawlPic {
-	String filePath="e:\\image";//ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+	String filePath="e:\\image";//ÎÄ¼þ´æ·ÅÎ»ÖÃ
 	String picList="pic.txt";
-	int num;//ï¿½ï¿½Ç°×¥È¡ï¿½ï¿½Í¼Æ¬ï¿½ï¿½ï¿½ï¿½
+	int num;//µ±Ç°×¥È¡µÄÍ¼Æ¬ÊýÁ¿
 	PrintWriter pw;
 	File lsit,file;
 	OutputStream out;
@@ -29,23 +29,23 @@ public class ToCrawlPic {
 	BufferedReader br;
 	
 	FileReader in;
-    	LineNumberReader reader; //line nums
+    LineNumberReader reader; 
 	
 	public ToCrawlPic(){
 		try {	
 			
 			file=new File(filePath);
-			if(!file.exists()){//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½ò´´½ï¿½
+			if(!file.exists()){//Èç¹û²»´æÔÚÂ·¾¶£¬Ôò´´½¨
 				file.mkdirs();
 			}			
-			//ï¿½ï¿½ï¿½ï¿½ï¿½åµ¥
+			//´´½¨Çåµ¥
 			lsit=new File(filePath+"/"+picList);
 			lsit.createNewFile();
 			
 			pw =new PrintWriter(new FileWriter(filePath+"/"+picList));
 			br=new BufferedReader(new InputStreamReader(new FileInputStream(new File(filePath+"/"+picList))));
 			
-			pw.println("Í¼Æ¬ï¿½åµ¥(ï¿½ï¿½"+new Date()+")");
+			pw.println("Í¼Æ¬Çåµ¥(£º"+new Date()+")");
 			pw.flush();
 			
 			in = new FileReader(new File(filePath+"/"+picList));
@@ -55,12 +55,12 @@ public class ToCrawlPic {
 		}
 	}
 	
-	//ï¿½Ø±ï¿½ï¿½ï¿½
+	//¹Ø±ÕÁ÷
 	public void closeStream(){
 		
 	}
 	
-	//ï¿½ï¿½È¡ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½Úµï¿½Í¼Æ¬ï¿½ï¿½ï¿½ï¿½
+	//¶ÁÈ¡ÒÑ¾­´æÔÚµÄÍ¼Æ¬ÊýÁ¿
 	public int getNum(){
 		int index=0;	
 		try {
@@ -78,7 +78,7 @@ public class ToCrawlPic {
 		return index;
 	}
 	
-	//ï¿½ï¿½ï¿½ï¿½×¥È¡ï¿½ï¿½Í¼Æ¬ï¿½Ð±ï¿½
+	//±£´æ×¥È¡µÄÍ¼Æ¬ÁÐ±í
 	public void savePicNameToFile(String name){
 		try {
 			//pw.write(name + "\n");
@@ -96,10 +96,10 @@ public class ToCrawlPic {
 		BufferedInputStream  bis;
 		FileOutputStream fos;
 		try {
-			System.out.println("MSG:ï¿½ï¿½Ê¼ï¿½ï¿½È¡Í¼Æ¬...");
+			System.out.println("MSG:¿ªÊ¼»ñÈ¡Í¼Æ¬...");
 			url=new URL(html_url);
 			int index=getNum();
-			//ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½+Í¼Æ¬Ô­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			//Ãû×ÖÎªÐòºÅ+Í¼Æ¬Ô­±¾µÄÃû×Ö
 			String picListName=html_url.substring(html_url.lastIndexOf("/")+1);
 			System.out.println("picListName:"+picListName);
 			bis=new BufferedInputStream(url.openStream());
@@ -110,14 +110,14 @@ public class ToCrawlPic {
 			}
 			bis.close();
 			fos.close();
-			//Í¬Ê±ï¿½ï¿½ï¿½ï¿½Í¼Æ¬list
+			//Í¬Ê±¸üÐÂÍ¼Æ¬list
 			savePicNameToFile(index+". "+picListName);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	//ï¿½ï¿½È¡ï¿½ï¿½Ò³html
+	//»ñÈ¡ÍøÒ³html
 	public String getHtmlCode(String _url){
 		StringBuffer res=new StringBuffer("");
 		URL url;
@@ -136,7 +136,7 @@ public class ToCrawlPic {
 		return res.toString();
 	}
 	
-	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò³
+	//·ÖÎöÍøÒ³
 	public void analyzeUrl(String _url){
 		String searchImgReg = "(?x)(src|SRC)=('|\")(http://([\\w-]+\\.)+[\\w-]+(:[0-9]+)*(/[\\w-]+)*(/[\\w-]+\\.(jpg|JPG|png|PNG|gif|GIF)))('|\")";
 		String htmlCode=getHtmlCode(_url);
@@ -147,7 +147,7 @@ public class ToCrawlPic {
 			catchPicByURL(matcher.group(3));
 			count++;
 		}
-		System.out.println("Ò»ï¿½ï¿½×¥È¡ï¿½ï¿½"+count+"ï¿½ï¿½Í¼Æ¬!!!");
+		System.out.println("Ò»¹²×¥È¡ÁË"+count+"ÕÅÍ¼Æ¬!!!");
 		try {
 			br.close();
 			pw.close();
@@ -157,10 +157,10 @@ public class ToCrawlPic {
 	}
 
 	public static void main(String[] args) {
-//		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¥È¥ï¿½ï¿½Ê¼Ò³ï¿½ë£º");
+//		System.out.println("ÇëÊäÈë×¥È¥¿ªÊ¼Ò³Âë£º");
 //		Scanner s=new Scanner(System.in);
 //		int start=s.nextInt();
-//		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¥È¥ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ë£º");
+//		System.out.println("ÇëÊäÈë×¥È¥½áÊøÒ³Âë£º");
 //		int ent=s.nextInt();
 		String url="http://jandan.net/ooxx/page-806";
 		ToCrawlPic tcp=new ToCrawlPic();
